@@ -48,9 +48,7 @@ API
 
 Movie data is provided by "The Movie Database (TMDB)" (https://www.themoviedb.org/).
 
-Live Demo
-
-Coming soon.
+Live Demo: https://farzane-23.github.io/movie-finder/
 
 Author
 

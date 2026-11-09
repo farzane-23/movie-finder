@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Movie Finder</h1>
+            <nav>
+                <a href="index.html">Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="movies-section container">
+        <h2 id="sectionTitle">Search Results</h2>
+
+        <p id="loading">Loading...</p>
+        <p id="error" class="hidden"></p>
+        <p id="emptyState" class="hidden">No movies found!</p>
+
+        <div id="movieList" class="movie-grid"></div>
+
+        <div id="pagination" class="pagination"></div>
+    </main>
+
+    <script src="config.js"></script>
+    <script src="search.js"></script>
+
+</body>
+</html>

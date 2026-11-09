@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Finder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Movie Finder</h1>
+
+            <nav>
+                <a href="index.html">Home</a>
+
+                <select id="genreSelect">
+                    <option value="">All Genres</option>
+                </select>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Find Your Favorite Movies</h2>
+                <p>Discover movies and explore their stories.</p>
+
+                <div class="search-box">
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search for a movie..."
+                    >
+                    <button id="searchButton">Search</button>
+                </div>
+
+                <div id="suggestions" class="suggestions"></div>
+            </div>
+        </section>
+
+        <section class="movies-section container">
+            <h2 id="sectionTitle">Popular Movies</h2>
+
+            <p id="loading" class="hidden">Loading...</p>
+            <p id="error" class="hidden"></p>
+            <p id="emptyState" class="hidden">No movies found!</p>
+
+            <div id="movieList" class="movie-grid"></div>
+
+            <div id="pagination" class="pagination"></div>
+        </section>
+    </main>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

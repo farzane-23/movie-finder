@@ -3,57 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Finder</title>
+    <title>IMDb - Discover Movies</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
+    
     <header class="header">
-        <div class="container">
-            <h1 class="logo">Movie Finder</h1>
+        <div class="container header-content">
 
-            <nav>
-                <a href="index.html">Home</a>
+            <a href="index.html" class="logo">IMDb</a>
 
-                <select id="genreSelect">
-                    <option value="">All Genres</option>
-                </select>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <section class="hero">
-            <div class="container">
-                <h2>Find Your Favorite Movies</h2>
-                <p>Discover movies and explore their stories.</p>
-
+            <div class="header-search">
                 <div class="search-box">
                     <input
                         type="text"
                         id="searchInput"
-                        placeholder="Search for a movie..."
+                        placeholder="Search movies..."
+                        autocomplete="off"
                     >
-                    <button id="searchButton">Search</button>
+                    <button id="searchButton" type="button">
+                        Search
+                    </button>
                 </div>
 
                 <div id="suggestions" class="suggestions"></div>
             </div>
+
+            <nav class="navbar">
+                <a href="index.html" class="active">Home</a>
+
+                <select id="genreSelect">
+                    <option value="">Genres</option>
+                </select>
+            </nav>
+
+        </div>
+    </header>
+
+    <main>
+
+        
+        <section class="hero">
+            <div class="hero-overlay">
+                <div class="container hero-content">
+                    <span class="hero-label">WELCOME TO IMDb</span>
+
+                    <h1>Discover Your Next Favorite Movie</h1>
+
+                    <p>
+                        Explore popular movies, discover new stories
+                        and find the perfect movie for your next watch.
+                    </p>
+
+                    <a href="#popularMovies" class="hero-button">
+                        Explore Movies
+                    </a>
+                </div>
+            </div>
         </section>
 
-        <section class="movies-section container">
-            <h2 id="sectionTitle">Popular Movies</h2>
+       
+        <section class="movies-section container" id="popularMovies">
 
-            <p id="loading" class="hidden">Loading...</p>
-            <p id="error" class="hidden"></p>
-            <p id="emptyState" class="hidden">No movies found!</p>
+            <div class="section-heading">
+                <div>
+                    <span class="section-subtitle">EXPLORE</span>
+                    <h2 id="sectionTitle">Popular Movies</h2>
+                </div>
+            </div>
+
+            <p id="loading" class="message hidden">
+                Loading movies...
+            </p>
+
+            <p id="error" class="message hidden"></p>
+
+            <p id="emptyState" class="message hidden">
+                No movies found!
+            </p>
 
             <div id="movieList" class="movie-grid"></div>
 
             <div id="pagination" class="pagination"></div>
+
         </section>
+
     </main>
+
+   
+    <footer class="footer">
+        <div class="container">
+            <a href="index.html" class="footer-logo">IMDb</a>
+            <p>Discover movies. Explore stories.</p>
+            <p class="copyright">
+                © 2026 Movie Finder
+            </p>
+        </div>
+    </footer>
 
     <script src="config.js"></script>
     <script src="script.js"></script>

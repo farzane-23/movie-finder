@@ -7,6 +7,11 @@ const pagination = document.getElementById("pagination");
 const params = new URLSearchParams(window.location.search);
 const page = Number(params.get("page")) || 1;
 
+const searchInput = document.getElementById("searchInput");
+const searchButton = document.getElementById("searchButton");
+const suggestionsBox = document.getElementById("suggestions");
+const genreSelect = document.getElementById("genreSelect");
+
 async function getPopularMovies() {
     loading.classList.remove("hidden");
     error.classList.add("hidden");
@@ -32,7 +37,7 @@ async function getPopularMovies() {
         displayMovies(data.results);
         displayPagination(data.total_pages);
 
-        if (data.results.length === 0) {
+        if (!data.results || data.results.length === 0) {
             emptyState.classList.remove("hidden");
         }
 
@@ -45,6 +50,45 @@ async function getPopularMovies() {
         loading.classList.add("hidden");
     }
 }
+
+
+function displayMovies(movies) {
+    movieList.innerHTML = "";
+
+    movies.forEach(movie => {
+        const card = document.createElement("div");
+        card.classList.add("movie-card");
+
+        const poster = movie.poster_path
+            ? `${IMAGE_BASE_URL}${movie.poster_path}`
+            : "https://placehold.co/300x450?text=No+Poster";
+
+        const rating = Number(movie.vote_average || 0).toFixed(1);
+
+        const releaseYear = movie.release_date
+            ? movie.release_date.slice(0, 4)
+            : "Unknown";
+
+        card.innerHTML = `
+            <img src="${poster}" alt="${movie.title}"
+                 onerror="this.src='https://placehold.co/300x450?text=No+Poster'">
+
+            <h3>${movie.title}</h3>
+
+            <p>
+                <span>★</span> ${rating}
+                <span class="movie-year">${releaseYear}</span>
+            </p>
+        `;
+
+        card.addEventListener("click", function () {
+            window.location.href = `details.html?id=${movie.id}`;
+        });
+
+        movieList.appendChild(card);
+    });
+}
+
 
 function displayPagination(totalPages) {
     pagination.innerHTML = "";
@@ -73,57 +117,26 @@ function displayPagination(totalPages) {
     pagination.append(previousButton, pageText, nextButton);
 }
 
-function displayMovies(movies) {
-    movieList.innerHTML = "";
-
-    movies.forEach(movie => {
-        const card = document.createElement("div");
-        card.classList.add("movie-card");
-
-        const poster = movie.poster_path
-            ? `${IMAGE_BASE_URL}${movie.poster_path}`
-            : "https://placehold.co/300x450?text=No+Poster";
-
-        card.innerHTML = `
-            <img src="${poster}" alt="${movie.title}">
-            <h3>${movie.title}</h3>
-            <p>Rating: ${movie.vote_average.toFixed(1)}</p>
-        `;
-
-        card.addEventListener("click", function () {
-            window.location.href = `details.html?id=${movie.id}`;
-        });
-
-        movieList.appendChild(card);
-    });
-}
-
-getPopularMovies();
-
-const searchInput = document.getElementById("searchInput");
-const searchButton = document.getElementById("searchButton");
-const sectionTitle = document.getElementById("sectionTitle");
-const suggestionsBox = document.getElementById("suggestions");
 
 function searchMovies() {
     const query = searchInput.value.trim();
 
-    if (query === "") {
-        return;
-    }
+    if (!query) return;
 
     suggestionsBox.innerHTML = "";
 
-    window.location.href = `search.html?query=${encodeURIComponent(query)}&page=1`;
+    window.location.href =
+        `search.html?query=${encodeURIComponent(query)}&page=1`;
 }
 
 searchButton.addEventListener("click", searchMovies);
 
-searchInput.addEventListener("keydown", function(event) {
+searchInput.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         searchMovies();
     }
 });
+
 
 let suggestionTimer;
 
@@ -159,9 +172,23 @@ searchInput.addEventListener("input", function () {
 
             data.results.slice(0, 5).forEach(movie => {
                 const item = document.createElement("div");
-
                 item.classList.add("suggestion-item");
-                item.textContent = movie.title;
+
+                const poster = movie.poster_path
+                    ? `${IMAGE_BASE_URL}${movie.poster_path}`
+                    : "https://placehold.co/50x75?text=No+Poster";
+
+                item.innerHTML = `
+                    <img src="${poster}" alt="">
+                    <div>
+                        <strong>${movie.title}</strong>
+                        <small>
+                            ${movie.release_date
+                                ? movie.release_date.slice(0, 4)
+                                : "Unknown"}
+                        </small>
+                    </div>
+                `;
 
                 item.addEventListener("click", function () {
                     window.location.href = `details.html?id=${movie.id}`;
@@ -176,7 +203,6 @@ searchInput.addEventListener("input", function () {
     }, 400);
 });
 
-const genreSelect = document.getElementById("genreSelect");
 
 async function getGenres() {
     try {
@@ -208,16 +234,19 @@ async function getGenres() {
     }
 }
 
+
 genreSelect.addEventListener("change", function () {
     const genreId = genreSelect.value;
 
-    if (!genreId) {
-        return;
-    }
+    if (!genreId) return;
 
-    const genreName = genreSelect.options[genreSelect.selectedIndex].text;
+    const genreName =
+        genreSelect.options[genreSelect.selectedIndex].text;
 
-    window.location.href = `genre.html?id=${genreId}&name=${encodeURIComponent(genreName)}`;
+    window.location.href =
+        `genre.html?id=${genreId}&name=${encodeURIComponent(genreName)}`;
 });
 
+
+getPopularMovies();
 getGenres();

@@ -3,26 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Details</title>
+    <title>Movie Details - IMDb</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header class="header">
-        <div class="container">
-            <h1 class="logo">Movie Finder</h1>
-            <nav>
+        <div class="container header-content">
+            <a href="index.html" class="logo">IMDb</a>
+
+            <div class="header-search">
+                <div class="search-box">
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search movies..."
+                        autocomplete="off"
+                    >
+                    <button id="searchButton" type="button">Search</button>
+                </div>
+                <div id="suggestions" class="suggestions"></div>
+            </div>
+
+            <nav class="navbar">
                 <a href="index.html">Home</a>
+                <select id="genreSelect">
+                    <option value="">Genres</option>
+                </select>
             </nav>
         </div>
     </header>
 
-    <main class="container">
+    <main class="container details-page">
         <div id="movieDetails">
-            <p id="loading">Loading...</p>
-            <p id="error" class="hidden"></p>
+            <p id="loading" class="message">Loading movie details...</p>
+            <p id="error" class="message hidden"></p>
         </div>
     </main>
+
+    <footer class="footer">
+        <div class="container">
+            <a href="index.html" class="footer-logo">IMDb</a>
+            <p>Discover movies. Explore stories.</p>
+            <p class="copyright">© 2026 Movie Finder</p>
+        </div>
+    </footer>
 
     <script src="config.js"></script>
     <script src="details.js"></script>
